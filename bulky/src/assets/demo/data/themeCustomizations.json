@@ -1,0 +1,15 @@
+
+{
+    "data": [
+         {
+    "layoutMode": "light",
+    "menuMode": "static",
+    "menuTheme": "dim",
+    "topbarTheme": "light",
+    "inputStyle": "outlined",
+    "ripple": false,
+    "isRTL": true,
+    "theme": "gigas"
+  }
+    ]
+}

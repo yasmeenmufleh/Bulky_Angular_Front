@@ -3,18 +3,30 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { CategoryComponent } from './category/category.component';
-import { CommonModule } from '@angular/common';
+import { MenubarModule } from 'primeng/menubar';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoryComponent
+    CategoryComponent,
   ],
   imports: [
-    BrowserModule,HttpClientModule
+    BrowserModule,
+    HttpClientModule,
+    MenubarModule,
+    ToastModule,
+    TableModule,
+    ButtonModule
   ],
-  providers: [],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

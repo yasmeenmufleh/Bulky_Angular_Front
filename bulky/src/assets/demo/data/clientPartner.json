@@ -1,0 +1,112 @@
+{
+    "data": [
+        {
+            "Code": "Cartman",
+            "account": "Cartman",
+            "main_Account": "Whateveryournameis",
+            "name": "Cartman",
+            "id_Client": "Cartman",
+            "phone": "Whateveryournameis",
+            "email": "Cartman",
+            "address": "Cartman",
+            "age_Debt": "Whateveryournameis",
+            "claim_Date": "2/2/2024"
+        },
+        {
+            "Code": "Cartman",
+            "account": "Cartman",
+            "main_Account": "Titi",
+            "name": "Cartman",
+            "id_Client": "Cartman",
+            "phone": "Titi",
+            "email": "Cartman",
+            "address": "Cartman",
+            "age_Debt": "Titi",
+            "claim_Date": "2/3/2024"
+        },
+        {
+            "Code": "Toto",
+            "account": "Toto",
+            "main_Account": "Lara",
+            "name": "Toto",
+            "id_Client": "Toto",
+            "phone": "Lara",
+            "email": "Toto",
+            "address": "Toto",
+            "age_Debt": "Lara",
+            "claim_Date": "2/4/2024"
+        },
+        {
+            "Code": "Luke",
+            "account": "Luke",
+            "main_Account": "Yoda",
+            "name": "Luke",
+            "id_Client": "Luke",
+            "phone": "Yoda",
+            "email": "Luke",
+            "address": "Luke",
+            "age_Debt": "Yoda",
+            "claim_Date": "2/5/2024"
+        },
+        {
+            "Code": "Foo",
+            "account": "Foo",
+            "main_Account": "Moliku",
+            "name": "Foo",
+            "id_Client": "Foo",
+            "phone": "Moliku",
+            "email": "Foo",
+            "address": "Foo",
+            "age_Debt": "Moliku",
+            "claim_Date": "2/6/2024"
+        },
+        {
+            "Code": "Luke",
+            "account": "Luke",
+            "main_Account": "Someone Last Name",
+            "name": "Luke",
+            "id_Client": "Luke",
+            "phone": "Someone Last Name",
+            "email": "Luke",
+            "address": "Luke",
+            "age_Debt": "Someone Last Name",
+            "claim_Date": "2/7/2024"
+        },
+        {
+            "Code": "Batman",
+            "account": "Batman",
+            "main_Account": "Lara",
+            "name": "Batman",
+            "id_Client": "Batman",
+            "phone": "Lara",
+            "email": "Batman",
+            "address": "Batman",
+            "age_Debt": "Lara",
+            "claim_Date": "2/8/2024"
+        },
+        {
+            "Code": "Zed",
+            "account": "Zed",
+            "main_Account": "Kyle",
+            "name": "Zed",
+            "id_Client": "Zed",
+            "phone": "Kyle",
+            "email": "Zed",
+            "address": "Zed",
+            "age_Debt": "Kyle",
+            "claim_Date": "2/9/2024"
+        },
+        {
+            "Code": "Louis",
+            "account": "Louis",
+            "main_Account": "Whateveryournameis",
+            "name": "Louis",
+            "id_Client": "Louis",
+            "phone": "Whateveryournameis",
+            "email": "Louis",
+            "address": "Louis",
+            "age_Debt": "Whateveryournameis",
+            "claim_Date": "2/10/2023"
+        }
+    ]
+}
