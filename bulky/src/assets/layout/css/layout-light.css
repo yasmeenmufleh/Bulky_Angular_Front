@@ -473,8 +473,7 @@ p:last-child {
   align-items: center;
 }
 .layout-topbar-light .layout-topbar .layout-topbar-wrapper .layout-topbar-left .layout-topbar-logo > img {
-      height: 32px;
-    width: 231px;
+  height: 32px;
 }
 .layout-topbar-light .layout-topbar .layout-topbar-wrapper .layout-topbar-right {
   height: 100%;
@@ -3262,12 +3261,6 @@ p:last-child {
   height: 30px;
   width: auto;
 }
-
-.customeClassFooter{
-  height: 40px;
-  width: 195px;
-}
-
 .landing-wrapper .landing-footer .social-icons {
   display: -ms-flexbox;
   display: flex;

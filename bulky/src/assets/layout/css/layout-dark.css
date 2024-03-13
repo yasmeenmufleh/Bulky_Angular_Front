@@ -971,13 +971,7 @@ p:last-child {
   align-items: center;
 }
 .layout-topbar-dark .layout-topbar .layout-topbar-wrapper .layout-topbar-left .layout-topbar-logo > img {
-    height: 32px;
-    width: 231px;
-}
-
-.customeClassFooter{
-	    height: 97px;
-    width: 300px;
+  height: 32px;
 }
 .layout-topbar-dark .layout-topbar .layout-topbar-wrapper .layout-topbar-right {
   height: 100%;
