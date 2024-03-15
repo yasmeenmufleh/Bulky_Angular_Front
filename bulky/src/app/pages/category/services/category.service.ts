@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Category } from '../Model/category';
 
@@ -21,7 +21,18 @@ export class CategoryService {
       .set('Content-Type', 'application/json')
       .set('Accept', '*/*');
 
-    return this.http.post<any>(this.apiUrl, categoryData, { headers });
+    return this.http.post<any>(this.apiUrl + "/Create", categoryData, { headers });
+  }
+  updateCategory(categoryData: Category): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', '*/*');
+
+    return this.http.post<any>(this.apiUrl + "/Update", categoryData, { headers });
+  }
+
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/Delete`, { params: { id: id.toString() } });
   }
 
 }

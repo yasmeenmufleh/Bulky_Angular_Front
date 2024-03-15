@@ -17,12 +17,16 @@ export class CategoryComponent implements OnInit {
 
   category: Category = {}
 
-  createDialoge = false;
+  categoryDialoge = false;
 
   submitted: boolean = false;
 
+  viewFlag: boolean = false;
+  
+  deleteCategoryDialog: boolean = false;
 
-  constructor(private categoryService: CategoryService, private breadcrumbService: AppBreadcrumbService,private messageService: MessageService, private confirmationService: ConfirmationService) {
+
+  constructor(private categoryService: CategoryService, private breadcrumbService: AppBreadcrumbService, private messageService: MessageService, private confirmationService: ConfirmationService) {
     this.breadcrumbService.setItems([
       { label: 'Favourit' },
       { label: 'Category' }
@@ -39,49 +43,102 @@ export class CategoryComponent implements OnInit {
   openNew() {
     this.category = {};
     this.submitted = false;
-    this.createDialoge = true;
+    this.categoryDialoge = true;
+    this.viewFlag = false;
+  }
+
+  hideDialog() {
+    this.categoryDialoge = false;
+    this.submitted = false;
+  }
+
+
+  editCategory(category: Category) {
+    this.category = { ...category };
+    this.categoryDialoge = true;
+    this.viewFlag = false;
+  }
+
+  viewCategory(category: Category) {
+    this.category = { ...category };
+    this.categoryDialoge = true;
+    this.viewFlag = true;
+  }
+
+  deleteCategory(category: Category) {
+    this.deleteCategoryDialog = true;
+    this.category = { ...category };
 }
 
-hideDialog() {
-  this.createDialoge = false;
-  this.submitted = false;
-}
+  saveCategory() {
+    this.submitted = true;
 
-saveCategory() {
-  this.submitted = true;
-
-  if (this.category.name?.trim()) {
+    if (this.category.name?.trim()) {
       if (this.category.id) {
-          // @ts-ignore
-          // this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-          // this.products[this.findIndexById(this.product.id)] = this.product;
-          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+
+        const categoryData: Category = {
+          id: this.category.id,
+          name: this.category.name,
+          displayOrder: this.category.displayOrder
+        }
+
+        this.categoryService.updateCategory(categoryData).subscribe(
+          response => {
+            this.categoryService.getCategories().subscribe(categories => {
+              this.categories = categories;
+              this.categoryDialoge = false;
+              this.category = {};
+            });
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Category Updated', life: 3000 });
+          },
+          error => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Category Could not be Updated', life: 3000 });
+          }
+        );
+
       } else {
 
-         const categoryData : Category = {
-          name : this.category.name,
-          displayOrder : this.category.displayOrder
-         }
+        const categoryData: Category = {
+          name: this.category.name,
+          displayOrder: this.category.displayOrder
+        }
 
-          this.categoryService.createCategory(categoryData).subscribe(
-            response => {
-              this.categoryService.getCategories().subscribe(categories => {
-                this.categories = categories;
-                this.createDialoge = false;
+        this.categoryService.createCategory(categoryData).subscribe(
+          response => {
+            this.categoryService.getCategories().subscribe(categories => {
+              this.categories = categories;
+              this.categoryDialoge = false;
               this.category = {};
-              });  
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Category Created', life: 3000 });
-            },
-            error => {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Product Could not be created', life: 3000 });
-            }
-          );
+            });
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Category Created', life: 3000 });
+          },
+          error => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Category Could not be created', life: 3000 });
+          }
+        );
       }
 
-          
-      
+
+
+    }
   }
+
+  confirmDelete() {
+    this.deleteCategoryDialog = false;
+    this.categoryService.deleteCategory(this.category.id).subscribe(response => {
+      this.categoryService.getCategories().subscribe(categories => {
+        this.categories = categories;
+        this.categoryDialoge = false;
+        this.category = {};
+      });
+      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Category Deleted', life: 3000 });
+
+    },
+    error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Category Could not be Deleted', life: 3000 });
+    });
 }
+
 
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
