@@ -1,0 +1,244 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <h5>Category</h5>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="new" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="openNew()"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()" class="mr-2"
+                        pTooltip="CSV" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                        class="p-button-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                        class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="products" responsiveLayout="scroll" [rows]="5"
+                [globalFilterFields]="['id','name','displayOrder']" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowHover]="true"
+                dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Manage Products </h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                                class="w-full sm:w-auto" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id" style="white-space: nowrap;">ID <p-sortIcon field="id"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="title" style="white-space: nowrap;">Title <p-sortIcon
+                                field="title"></p-sortIcon></th>
+                        <th pSortableColumn="description" style="white-space: nowrap;">Description <p-sortIcon
+                                field="description"></p-sortIcon></th>
+                        <th pSortableColumn="isbn" style="white-space: nowrap;">ISBN <p-sortIcon
+                                field="isbn"></p-sortIcon></th>
+                        <th pSortableColumn="author" style="white-space: nowrap;">Author <p-sortIcon
+                                field="author"></p-sortIcon></th>
+                        <th pSortableColumn="listPrice" style="white-space: nowrap;">List Price <p-sortIcon
+                                field="listPrice"></p-sortIcon></th>
+                        <th pSortableColumn="price" style="white-space: nowrap;">Price <p-sortIcon
+                                field="price"></p-sortIcon></th>
+                        <th pSortableColumn="price50" style="white-space: nowrap;">Price Of 50 <p-sortIcon
+                                field="price50"></p-sortIcon></th>
+                        <th pSortableColumn="price100" style="white-space: nowrap;">Price Of 100 <p-sortIcon
+                                field="price100"></p-sortIcon></th>
+                        <th pSortableColumn="category" style="white-space: nowrap;">Category <p-sortIcon
+                                field="category"></p-sortIcon></th>
+                        <th pSortableColumn="imageUrl" style="white-space: nowrap;">Image <p-sortIcon
+                                field="imageUrl"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">ID</span>
+                            {{product.id}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Title</span>
+                            {{product.title}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Description</span>
+                            {{product.description}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">ISBN</span>
+                            {{product.isbn}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Author</span>
+                            {{product.author}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">List Price</span>
+                            {{product.listPrice}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Price</span>
+                            {{product.price}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Price Of 50</span>
+                            {{product.price50}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Price of 100</span>
+                            {{product.price100}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Category</span>
+                            {{product.category.name}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Category</span>
+                            <img [src]="product.imageUrl" [alt]="product.title" width="100" class="shadow-4" />
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2" pTooltip="Edit Category"
+                                    (click)="editProduct(product)"></button>
+                                <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2"
+                                    pTooltip="View Category" (click)="viewProduct(product)"></button>
+                                <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-warning mr-2" pTooltip="Delete Category"
+                                    (click)="deleteProduct(product)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <p-dialog [(visible)]="productDialoge" [modal]="true" header="Create Product" [style]="{width: '500px'}"
+            class="p-fluid">
+            <form #productForm="ngForm" enctype="multipart/form-data">
+                <div class="field">
+                    <label for="title">Title</label>
+                    <input type="text" pInputText id="title" name="title" [disabled]="viewFlag"
+                        [(ngModel)]="product.title" required [ngModelOptions]="{standalone: true}"
+                        [ngClass]="{'ng-invalid ng-dirty' : (submitted || productForm.submitted) && !product.title}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.title">Title is required.</small>
+                </div>
+                <div class="field">
+                    <label for="description">Description</label>
+                    <textarea pInputTextarea id="description" name="description" [(ngModel)]="product.description"
+                        [ngModelOptions]="{standalone: true}" [disabled]="viewFlag" required></textarea>
+                </div>
+                <div class="field">
+                    <label for="isbn">ISBN</label>
+                    <input type="text" pInputText id="isbn" name="isbn" [(ngModel)]="product.isbn"
+                        [ngModelOptions]="{standalone: true}" [disabled]="viewFlag" required />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.isbn">ISBN is required.</small>
+                </div>
+                <div class="field">
+                    <label for="author">Author</label>
+                    <input type="text" pInputText id="author" name="author" [(ngModel)]="product.author"
+                        [ngModelOptions]="{standalone: true}" [disabled]="viewFlag" required />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.author">Author is required.</small>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col-6">
+                        <label for="listPrice">List Price</label>
+                        <p-inputNumber id="listPrice" name="listPrice" [disabled]="viewFlag"
+                            [(ngModel)]="product.listPrice" [ngModelOptions]="{standalone: true}" mode="currency"
+                            currency="USD" locale="en-US" required=""></p-inputNumber>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.listPrice">List Price is
+                            required.</small>
+                    </div>
+                    <div class="field col-6">
+                        <label for="price">Price for 1-50</label>
+                        <p-inputNumber id="price" name="price" [(ngModel)]="product.price" [disabled]="viewFlag"
+                            [ngModelOptions]="{standalone: true}" mode="currency" currency="USD" locale="en-US"
+                            required=""></p-inputNumber>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.price">Price for 1-50 is
+                            required.</small>
+                    </div>
+                    <div class="field col-6">
+                        <label for="price50">Price for 50+</label>
+                        <p-inputNumber id="price50" name="price50" [disabled]="viewFlag" [(ngModel)]="product.price50"
+                            [ngModelOptions]="{standalone: true}" mode="currency" currency="USD" locale="en-US"
+                            required=""></p-inputNumber>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.price50">Price for 50+ is
+                            required.</small>
+                    </div>
+                    <div class="field col-6">
+                        <label for="price100">Price for 100+</label>
+                        <p-inputNumber id="price100" name="price100" [disabled]="viewFlag"
+                            [(ngModel)]="product.price100" [ngModelOptions]="{standalone: true}" mode="currency"
+                            currency="USD" locale="en-US" required=""></p-inputNumber>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.price100">Price for 100+ is
+                            required.</small>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col-6">
+                        <label for="category">Category</label>
+                        <p-dropdown [options]="categories" [disabled]="viewFlag" [(ngModel)]="product.category"
+                            [ngModelOptions]="{standalone: true}" optionLabel="name" placeholder="Select a category"
+                            [showClear]="true" required></p-dropdown>
+                    </div>
+                    <div class="field col-6">
+                        <label for="image">Image</label>
+                        <p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                            accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true"
+                            chooseLabel="Browse" [disabled]="viewFlag" required></p-fileUpload>
+                    </div>
+                </div>
+
+                <div *ngIf="uploadedFile" class="formgrid grid">
+                    <label class="field col-12">Uploaded Image:</label>
+                    <div class="field col-12" style="display: flex;justify-content: center;">
+                        <img [src]="uploadedFile.objectURL.changingThisBreaksApplicationSecurity"
+                            [alt]="uploadedFile.name" style="max-width: 150px;max-height: 150px;">
+                    </div>
+                </div>
+                <div *ngIf="product.imageUrl && !uploadedFile" class="formgrid grid">
+                    <label class="field col-12">Uploaded Image:</label>
+                    <div class="field col-12" style="display: flex;justify-content: center;">
+                        <img [src]="product.imageUrl" [alt]="product.title" style="max-width: 150px;max-height: 150px;">
+                    </div>
+                </div>
+            </form>
+
+            <ng-template pTemplate="footer">
+                <button pButton type="button" label="Cancel" (click)="hideDialog()"></button>
+                <button *ngIf="!viewFlag" pButton type="button" label="Save" (click)="saveProduct()"
+                    [disabled]="!productForm.valid"></button>
+            </ng-template>
+        </p-dialog>
+
+
+
+        <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="product">Are you sure you want to delete <b>{{product.title}}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                    (click)="deleteCategoryDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                    (click)="confirmDelete()"></button>
+            </ng-template>
+        </p-dialog>
+
+
+
+    </div>
+</div>

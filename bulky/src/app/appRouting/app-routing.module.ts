@@ -31,6 +31,7 @@ import {AppInvoiceComponent} from '../pages/appInvoice/app.invoice.component';
 import {AppHelpComponent} from '../pages/appHelp/app.help.component';
 import {BlocksComponent} from '../blocks/blocks/blocks.component';
 import { CategoryComponent } from '../pages/category/category.component';
+import { ProductComponent } from '../pages/product/product.component';
 
 @NgModule({
     imports: [
@@ -40,6 +41,7 @@ import { CategoryComponent } from '../pages/category/category.component';
                 children: [
                     {path: '', component: DashboardDemoComponent},
                     {path: 'category', component: CategoryComponent},
+                    {path: 'product', component: ProductComponent},
                     {path: 'uikit/formlayout', component: FormLayoutDemoComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelDemoComponent},
                     {path: 'uikit/invalidstate', component: InvalidStateDemoComponent},

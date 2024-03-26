@@ -139,6 +139,8 @@ import { AppNotfoundComponent } from './pages/appNotfound/app.notfound.component
 import { AppTimelineDemoComponent } from './pages/appTimelineDemo/app.timelinedemo.component';
 import { IconsComponent } from './utilities/icons.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { ProductComponent } from './pages/product/product.component';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 
 
@@ -271,12 +273,14 @@ import { CategoryComponent } from './pages/category/category.component';
         AppAccessdeniedComponent,
         BlocksComponent,
         BlockViewer,
-        CategoryComponent
+        CategoryComponent,
+        ProductComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService, AppBreadcrumbService, ConfigService
+        PhotoService, ProductService, MenuService, AppBreadcrumbService, ConfigService,
+        MessageService, ConfirmationService
     ],
     bootstrap: [AppComponent]
 })

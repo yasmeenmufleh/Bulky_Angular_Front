@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Category } from './Model/category';
+import { Category } from './Models/category';
 import { CategoryService } from './services/category.service';
 import { AppBreadcrumbService } from 'src/app/appBreadcrumb/app.breadcrumb.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  providers: [MessageService, ConfirmationService],
   styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit,OnDestroy {
 
   categories: Category[] = [];
 
@@ -25,6 +25,8 @@ export class CategoryComponent implements OnInit {
   
   deleteCategoryDialog: boolean = false;
 
+  categorySub : Subscription
+
 
   constructor(private categoryService: CategoryService, private breadcrumbService: AppBreadcrumbService, private messageService: MessageService, private confirmationService: ConfirmationService) {
     this.breadcrumbService.setItems([
@@ -32,9 +34,12 @@ export class CategoryComponent implements OnInit {
       { label: 'Category' }
     ]);
   }
+  ngOnDestroy(): void {
+    this.categorySub.unsubscribe();
+  }
 
   ngOnInit(): void {
-    this.categoryService.getCategories().subscribe(categories => {
+    this.categorySub = this.categoryService.getCategories().subscribe(categories => {
       this.categories = categories;
     });
   }
