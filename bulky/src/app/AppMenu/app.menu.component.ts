@@ -20,9 +20,10 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Favorites', icon: 'pi pi-fw pi-home',
                 items: [
-                    {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/']},
+                    {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/']},
                     {label: 'Category', icon: 'pi pi-align-justify', routerLink: ['/category']},
-                    {label: 'Product', icon: 'pi pi-align-justify', routerLink: ['/product']}
+                    {label: 'Product', icon: 'pi pi-book', routerLink: ['/product']},
+                    {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/Dashboard']},
                 ]
             },
             {

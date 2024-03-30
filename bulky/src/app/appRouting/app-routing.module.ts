@@ -32,6 +32,8 @@ import {AppHelpComponent} from '../pages/appHelp/app.help.component';
 import {BlocksComponent} from '../blocks/blocks/blocks.component';
 import { CategoryComponent } from '../pages/category/category.component';
 import { ProductComponent } from '../pages/product/product.component';
+import { HomeComponent } from '../pages/home/home.component';
+import { DetailsComponent } from '../pages/home/details/details.component';
 
 @NgModule({
     imports: [
@@ -39,9 +41,11 @@ import { ProductComponent } from '../pages/product/product.component';
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    {path: '', component: DashboardDemoComponent},
+                    {path: '', component: HomeComponent},
+                    {path: 'Dashboard', component: DashboardDemoComponent},
                     {path: 'category', component: CategoryComponent},
                     {path: 'product', component: ProductComponent},
+                    {path: 'productDetails', component: DetailsComponent},
                     {path: 'uikit/formlayout', component: FormLayoutDemoComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelDemoComponent},
                     {path: 'uikit/invalidstate', component: InvalidStateDemoComponent},

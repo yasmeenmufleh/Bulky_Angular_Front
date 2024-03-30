@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from './services/product.service';
 import { AppBreadcrumbService } from 'test/src/app/app-breadcrumb/app-breadcrumb.service';
 import { MessageService, ConfirmationService, SelectItem } from 'primeng/api';
@@ -16,7 +16,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit,OnDestroy {
 
   products: Product[] = [];
 
@@ -50,11 +50,14 @@ export class ProductComponent implements OnInit {
       { label: 'Product' }
     ]);
   }
+  ngOnDestroy(): void {
+    this.productSub.unsubscribe();
+    this.categorySub.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.productSub = this.productService.getProducts().subscribe(products => {
       this.products = products;
-      console.log(products)
     });
 
 

@@ -141,6 +141,8 @@ import { IconsComponent } from './utilities/icons.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { ProductComponent } from './pages/product/product.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { HomeComponent } from './pages/home/home.component';
+import { DetailsComponent } from './pages/home/details/details.component';
 
 
 
@@ -274,7 +276,9 @@ import { MessageService, ConfirmationService } from 'primeng/api';
         BlocksComponent,
         BlockViewer,
         CategoryComponent,
-        ProductComponent
+        ProductComponent,
+        HomeComponent,
+        DetailsComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
