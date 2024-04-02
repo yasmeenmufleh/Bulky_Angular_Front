@@ -34,6 +34,7 @@ import { CategoryComponent } from '../pages/category/category.component';
 import { ProductComponent } from '../pages/product/product.component';
 import { HomeComponent } from '../pages/home/home.component';
 import { DetailsComponent } from '../pages/home/details/details.component';
+import { AuthComponent } from '../auth/auth.component';
 
 @NgModule({
     imports: [
@@ -77,6 +78,7 @@ import { DetailsComponent } from '../pages/home/details/details.component';
             {path: 'access', component: AppAccessdeniedComponent},
             {path: 'notfound', component: AppNotfoundComponent},
             {path: 'login', component: AppLoginComponent},
+            {path: 'auth', component: AuthComponent},
             {path: '**', redirectTo: '/notfound'},
         ], {scrollPositionRestoration: 'enabled'})
     ],

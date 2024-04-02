@@ -1,0 +1,175 @@
+<div class="login-body" style="height: fit-content;">
+    <div class="login-wrapper" style="height: fit-content;">
+        <div class="login-panel" style="height: fit-content;">
+            <p-card header="Login" *ngIf="isLogin"
+                [style]="{ 'margin-bottom': '1rem', 'border-radius': '56px','padding' : '0.3rem'}">
+                <ng-template pTemplate="header">
+                    <img alt="Card"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                        style="width: 200px;" />
+                </ng-template>
+                <div>
+                    <label for="username" class="block text-900 text-xl font-medium mb-2">Username</label>
+                    <input id="username" type="text" placeholder="Username" pInputText class="w-full md:w-30rem mb-5"
+                        style="padding:1rem" [(ngModel)]="loginUser.username">
+                </div>
+                <div>
+                    <label for="password" class="block text-900 text-xl font-medium mb-2">Password</label>
+                    <p-password id="password" [(ngModel)]="loginUser.password" [feedback]="false" placeholder="Password"
+                        inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+                </div>
+                <ng-template pTemplate="footer">
+                    <div class="flex align-items-center justify-content-between mb-5 gap-5">
+                        <div class="flex align-items-center">
+                            <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
+                            <label for="rememberme1">Remember me</label>
+                        </div>
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer"
+                            style="color: var(--primary-color)">Forgot password?</a>
+                    </div>
+                    <div class="row" style="display: flex;">
+                        <div class="col-6">
+                            <button pButton pRipple label="Sign In" class="w-full p-3 text-xl"
+                                (click)="login()"></button>
+                        </div>
+                        <div class="col-6">
+                            <button pButton pRipple label="Register" class="w-full p-3 text-xl"
+                                (click)="isLogin = false"></button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-card>
+
+            <p-card header="Register" *ngIf="!isLogin"
+                [style]="{ 'margin-bottom': '1rem', 'border-radius': '56px','padding' : '0.3rem'}">
+                <ng-template pTemplate="header">
+                    <img alt="Card"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                        style="width: 200px;" />
+                </ng-template>
+                <div class="row" style="display: flex;">
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-red-500 text-sm">Please
+                            enter a valid email address.</div>
+                        <input id="email1" type="text" [(ngModel)]="registerUser.email" name="email"
+                            placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem"
+                            required #email="ngModel"
+                            [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}">
+                        
+                    </div>
+
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="fullName" class="block text-900 text-xl font-medium mb-2">Full Name</label>
+                        <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)"
+                            class="text-red-500 text-sm">Full Name is required.</div>
+                        <input id="fullName" type="text" [(ngModel)]="registerUser.username" name="fullName"
+                            placeholder="Full Name" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem"
+                            required #fullName="ngModel"
+                            [ngClass]="{'is-invalid': fullName.invalid && (fullName.dirty || fullName.touched)}">
+                        
+                    </div>
+                </div>
+                <div class="row" style="display: flex;">
+                    <!-- Password -->
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="password" class="block text-900 text-xl font-medium mb-2">Password</label>
+                        <div *ngIf="passwordInvalid && (passwordTouched || passwordEntered)" class="text-sm" style="color: red;">Password must contain at least one lowercase, one uppercase, one numeric, and be minimum 8 characters long.</div>
+                        <p-password id="password" [(ngModel)]="registerUser.password" placeholder="Password" inputStyleClass="w-full p-3 md:w-30rem"
+                            [ngClass]="{'is-invalid': passwordInvalid && (passwordTouched || passwordEntered)}" (ngModelChange)="checkPassword()"
+                            #passwordField="ngModel">
+                            <ng-template pTemplate="header">
+                                <h6>Pick a password</h6>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <p-divider></p-divider>
+                                <p class="mt-2">Suggestions</p>
+                                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                    <li>At least one lowercase</li>
+                                    <li>At least one uppercase</li>
+                                    <li>At least one numeric</li>
+                                    <li>Minimum 8 characters</li>
+                                </ul>
+                            </ng-template>
+                        </p-password>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="confirmPassword" class="block text-900 text-xl font-medium mb-2">Confirm Password</label>
+                        <div *ngIf="confirmPassword !== registerUser.password && (confirmPasswordTouched || confirmPasswordEntered)" class="text-sm" style="color: red;">Passwords do not match.</div>
+                        <p-password id="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirm Password" inputStyleClass="w-full p-3 md:w-30rem"
+                            [ngClass]="{'is-invalid': confirmPassword !== registerUser.password && (confirmPasswordTouched || confirmPasswordEntered)}"
+                            (ngModelChange)="checkConfirmPassword()" #confirmPasswordField="ngModel">
+                            <ng-template pTemplate="header">
+                                <h6>Pick a password</h6>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <p-divider></p-divider>
+                                <p class="mt-2">Suggestions</p>
+                                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                    <li>At least one lowercase</li>
+                                    <li>At least one uppercase</li>
+                                    <li>At least one numeric</li>
+                                    <li>Minimum 8 characters</li>
+                                </ul>
+                            </ng-template>
+                        </p-password>
+                    </div>
+                </div>
+                
+                
+                <div class="row" style="display: flex;">
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="phoneNumber" class="block text-900 text-xl font-medium mb-2">Phone Number</label>
+                        <input id="phoneNumber" type="text" placeholder="(+962) 77-777-7777" pInputText
+                            class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="registerUser.phoneNumber">
+                    </div>
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="streetAddress" class="block text-900 text-xl font-medium mb-2">Street
+                            Address</label>
+                        <input id="streetAddress" type="text" placeholder="Street Address" pInputText
+                            class="w-full md:w-30rem mb-5" style="padding:1rem"
+                            [(ngModel)]="registerUser.streetAddress">
+                    </div>
+                </div>
+                <div class="row" style="display: flex;">
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="city" class="block text-900 text-xl font-medium mb-2">City</label>
+                        <input id="city" type="text" placeholder="City" pInputText class="w-full md:w-30rem mb-5"
+                            style="padding:1rem" [(ngModel)]="registerUser.city">
+                    </div>
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="state" class="block text-900 text-xl font-medium mb-2">State</label>
+                        <input id="state" type="text" placeholder="State" pInputText class="w-full md:w-30rem mb-5"
+                            style="padding:1rem" [(ngModel)]="registerUser.state">
+                    </div>
+                </div>
+                <div class="row" style="display: flex;">
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="postalCode" class="block text-900 text-xl font-medium mb-2">Postal Code</label>
+                        <input id="postalCode" type="text" placeholder="Postal Code" pInputText
+                            class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="registerUser.postalCode">
+                    </div>
+                    <div class="col-md-6" style="margin: 10px;">
+                        <label for="role" class="block text-900 text-xl font-medium mb-2">State</label>
+                        <p-dropdown id="role" [options]="roles" [(ngModel)]="selectedRole"
+                            [ngModelOptions]="{standalone: true}" optionLabel="name" placeholder="Select a Role"
+                            [showClear]="true" class="w-full md:w-30rem mb-5"></p-dropdown>
+                    </div>
+                </div>
+                <ng-template pTemplate="footer">
+                    <div style="display: flex;justify-content: end;">
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer"
+                            style="color: var(--primary-color)">Forgot password?</a>
+                    </div>
+                    <div class="row" style="display: flex;justify-content: center;">
+                        <div class="col-6">
+                            <button pButton pRipple label="Register" class="w-full p-3 text-xl"
+                                (click)="register()"></button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>

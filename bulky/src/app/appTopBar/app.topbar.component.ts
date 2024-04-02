@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {AppComponent} from '../app.component';
-import {AppMainComponent} from '../main/app.main.component';
+import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
+import { AppMainComponent } from '../main/app.main.component';
+import { AuthService } from '../auth/service/auth.service';
 
 @Component({
     selector: 'app-topbar',
@@ -231,6 +232,13 @@ import {AppMainComponent} from '../main/app.main.component';
                             </li>
                         </ul>
                     </li>
+
+                    <li class="topbar-item" routerLinkActive="active" style="background-color: #e8f1f8;margin-right: 15px;border-radius: 20px;">
+                        <a routerLink="/auth" style="color: black;" (click)="updateFlag(true)" >Login</a>
+                    </li>
+                    <li class="topbar-item" routerLinkActive="active" style="background-color: #e8f1f8;margin-right: 15px;border-radius: 20px;">
+                        <a routerLink="/auth" style="color: black;" (click)="updateFlag(false)" >Register</a>
+                    </li>
                 </ul>
 
                 <a class="layout-rightpanel-button" href="#" (click)="appMain.onRightPanelButtonClick($event)">
@@ -241,9 +249,22 @@ import {AppMainComponent} from '../main/app.main.component';
     </div>
 `
 })
-export class AppTopBarComponent {
+export class AppTopBarComponent implements OnInit {
 
-    constructor(public appMain: AppMainComponent, public app: AppComponent) {
+    constructor(public appMain: AppMainComponent, public app: AppComponent,public authService:AuthService) {
     }
+
+
+
+    ngOnInit(): void {
+        console.log(this.authService.userData$);
+        console.log(this.authService.isLoggedIn$);
+    }
+
+
+    updateFlag(flag : boolean){
+        this.authService.updateLoginFlag(flag);
+    }
+
 
 }

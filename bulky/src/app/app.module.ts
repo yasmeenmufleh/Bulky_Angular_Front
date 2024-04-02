@@ -1,5 +1,5 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
@@ -143,6 +143,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { HomeComponent } from './pages/home/home.component';
 import { DetailsComponent } from './pages/home/details/details.component';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -231,7 +232,8 @@ import { DetailsComponent } from './pages/home/details/details.component';
         TreeModule,
         TreeTableModule,
         VirtualScrollerModule,
-        AppCodeModule
+        AppCodeModule,
+        ReactiveFormsModule
     ],
     declarations: [
         AppComponent,
@@ -278,7 +280,8 @@ import { DetailsComponent } from './pages/home/details/details.component';
         CategoryComponent,
         ProductComponent,
         HomeComponent,
-        DetailsComponent
+        DetailsComponent,
+        AuthComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
