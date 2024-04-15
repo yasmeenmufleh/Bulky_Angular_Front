@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthService } from './service/auth.service';
 import { Register } from './models/register';
 import { Role } from './models/role';
 import { Login } from './models/login';
+import { CompanyService } from '../pages/company/services/company.service';
+import { Company } from '../pages/company/models/company';
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +27,12 @@ export class AuthComponent implements OnInit,OnDestroy {
 
   roles : Role[] = [];
 
+  companies: Company[] = [];
+
+
   selectedRole : Role;
+
+  slectedCompany : Company;
 
   loginUser : Login = {}
 
@@ -36,7 +42,12 @@ export class AuthComponent implements OnInit,OnDestroy {
 
   rolesSubscription : Subscription;
 
-  constructor(private authService : AuthService,private router : Router,private messageService : MessageService) {}
+  companySub: Subscription
+
+
+  constructor(private authService : AuthService,private router : Router,private messageService : MessageService,
+    private companyService: CompanyService,
+  ) {}
 
   ngOnInit(): void {
     this.loginFlagSubscription = this.authService.getLoginFlagSubject().subscribe(flag => {
@@ -46,17 +57,28 @@ export class AuthComponent implements OnInit,OnDestroy {
     this.rolesSubscription = this.authService.getRoles().subscribe(roles => {
       this.roles = roles;
     });
+
+    this.companySub = this.companyService.getCompanies().subscribe(companies => {
+      this.companies = companies;
+      console.log(companies);
+    });
+
   }
 
   ngOnDestroy(): void {
     this.loginFlagSubscription.unsubscribe();
     this.rolesSubscription.unsubscribe();
+    this.companySub.unsubscribe();
   }
 
 
   register(){
     this.registerUser.role = this.selectedRole.name;
     this.registerUser.name = this.registerUser.username;
+    if (this.slectedCompany) {
+      this.registerUser.CompanyId = this.slectedCompany.id;
+    }
+
     this.authService.registerUser(this.registerUser).subscribe(
       (response) => {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'User Registered Successfully', life: 3000 });
@@ -76,7 +98,8 @@ export class AuthComponent implements OnInit,OnDestroy {
         
       },
       (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User Could Not be Logged in', life: 3000 });
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User Could Not be Logged in ,\n Please Check the username or password', life: 6000 });
       }
     );
   }

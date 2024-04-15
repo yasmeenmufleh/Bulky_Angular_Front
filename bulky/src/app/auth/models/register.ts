@@ -1,3 +1,5 @@
+import { Company } from "src/app/pages/company/models/company";
+
 export interface Register {
     email?: string;
     username?: string;
@@ -9,5 +11,6 @@ export interface Register {
     state?: string;
     postalCode?: string;
     phoneNumber?: string;
+    CompanyId?: number;
   }
   

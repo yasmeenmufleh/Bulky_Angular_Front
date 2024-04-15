@@ -1,0 +1,75 @@
+<form>
+    <p-card class="p-mb-4">
+        <p-toast></p-toast>
+        <ng-template pTemplate="header">
+            <div class="text-center" style="background-color: #385b77;padding: 30px;">
+                <h3 style="color: white;">Shopping Cart</h3>
+            </div>
+        </ng-template>
+        <div class="p-grid">
+            <div class="row" style="display: flex;justify-content: center;">
+                 <div class="p-col-12 p-lg-9">
+                    <div class="p-grid p-dir-col">
+                        <div class="p-col-12" style="margin-bottom: 25px;">
+                            <button pButton pRipple type="button" label="Back to Home" class="p-button-info mr-2 mb-2" (click)="goBack()" ></button>
+                        </div>
+                        <div class="p-col-12" style="margin-bottom: 25px;" *ngIf="cartOrders.shoppingCartList.length === 0">
+                            <h4>Add an order to get started</h4>
+                        </div>
+                        <ng-container *ngFor="let order of cartOrders.shoppingCartList">
+                            <div class="p-col-12" style="margin-bottom: 25px;">
+                                <div class="row" style="display: flex;">
+                                    <div class="col-1">
+                                        <img [src]="order.product.imageUrl" style="width: 100px;height: 100px;">
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <h6>{{order.product.title}}</h6>
+                                            </div>
+                                            <div class="col-8">
+                                                <p>{{order.product.description}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <h6>{{order.price | currency:'USD'}} x {{order.count}} </h6>
+                                    </div>
+                                    <div class="col-2">
+                                        <!-- <p-button icon="pi pi-plus" severity="success" style="margin-right: 5px;"></p-button>
+                                        <p-button icon="pi pi-minus" severity="Danger"></p-button> -->
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-success mr-2 mb-2" (click)="plus(order)"></button>
+                                        <button pButton pRipple type="button" icon="pi pi-minus" class="p-button-rounded p-button-danger mr-2 mb-2" (click)="minus(order)"></button>
+                                    </div>
+                                    <div class="col-1">
+                                        <!-- <p-button icon="pi pi-trash" severity="Danger"></p-button> -->
+                                        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2 mb-2" (click)="deleteCartItem(order)"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </ng-container>
+                        <div class="p-col-12" *ngIf="cartOrders.shoppingCartList.length > 0">
+                            <div class="row" style="display: flex;align-items: center;flex-direction: column;">
+                                <div class="col-6">
+                                    <div class="row" style="display: flex;">
+                                        <div class="col-6">
+                                            Total (USD)
+                                        </div>
+                                        <div class="col-6">
+                                            {{cartOrders.orderTotal | currency:'USD'}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="display: flex;justify-content: center;">
+                                    <button type="submit" pButton class="p-button-primary" label="Summary" (click)="summary()" ></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </p-card>
+</form>

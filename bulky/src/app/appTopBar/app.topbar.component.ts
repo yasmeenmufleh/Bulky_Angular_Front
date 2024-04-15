@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { AppMainComponent } from '../main/app.main.component';
 import { AuthService } from '../auth/service/auth.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { UserData } from '../auth/models/userData';
 
 @Component({
     selector: 'app-topbar',
@@ -188,13 +190,13 @@ import { AuthService } from '../auth/service/auth.service';
                             </li>
                         </ul>
                     </li>
-                    <li #profile class="topbar-item user-profile"
+                    <li #profile class="topbar-item user-profile" *ngIf="isLoggedInFlag"
                         [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
                         <a href="#" (click)="appMain.onTopbarItemClick($event,profile)">
                             <img class="profile-image" src="assets/layout/images/avatar-profile.png" alt="demo">
                             <div class="profile-info">
-                                <h6>Peter Taylor</h6>
-                                <span>Webmaster</span>
+                                <h6>{{userData.name}}</h6>
+                                <span>{{userData.role}}</span>
                             </div>
                         </a>
 
@@ -202,8 +204,8 @@ import { AuthService } from '../auth/service/auth.service';
                             <li class="layout-submenu-header">
                                 <img class="profile-image" src="assets/layout/images/avatar-profile.png" alt="demo">
                                 <div class="profile-info">
-                                    <h6>Peter Taylor</h6>
-                                    <span>Webmaster</span>
+                                <h6>{{userData.name}}</h6>
+                                <span>{{userData.role}}</span>
                                 </div>
                             </li>
                             <li role="menuitem">
@@ -225,7 +227,7 @@ import { AuthService } from '../auth/service/auth.service';
                                 </a>
                             </li>
                             <li role="menuitem">
-                                <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
+                                <a href="#" (click)="logout()">
                                     <i class="pi pi-power-off"></i>
                                     <h6>Logout</h6>
                                 </a>
@@ -233,11 +235,22 @@ import { AuthService } from '../auth/service/auth.service';
                         </ul>
                     </li>
 
-                    <li class="topbar-item" routerLinkActive="active" style="background-color: #e8f1f8;margin-right: 15px;border-radius: 20px;">
+                      <!-- <li routerLinkActive="active" *ngIf="isLoggedInFlag">
+                        <a routerLink="/shoppingCart">
+                            <span class="p-overlay-badge topbar-icon">
+                                <i class="pi pi-shopping-cart" pBadge [value]="cartOrders.shoppingCartList.length"></i>
+                            </span>
+                        </a>
+                    </li> -->
+
+                    <li class="topbar-item" routerLinkActive="active" *ngIf="isLoggedInFlag" style="margin-right: 15px;border-radius: 20px;">
+                        <a routerLink="/shoppingCart" style="color: black;" ><i class="pi pi-shopping-cart text-2xl"></i></a>
+                    </li>
+                    <li class="topbar-item" routerLinkActive="active" *ngIf="!isLoggedInFlag" style="background-color: #e8f1f8;margin-right: 15px;border-radius: 20px;">
                         <a routerLink="/auth" style="color: black;" (click)="updateFlag(true)" >Login</a>
                     </li>
                     <li class="topbar-item" routerLinkActive="active" style="background-color: #e8f1f8;margin-right: 15px;border-radius: 20px;">
-                        <a routerLink="/auth" style="color: black;" (click)="updateFlag(false)" >Register</a>
+                        <a routerLink="/auth" style="color: black;" *ngIf="!isLoggedInFlag" (click)="updateFlag(false)" >Register</a>
                     </li>
                 </ul>
 
@@ -249,7 +262,15 @@ import { AuthService } from '../auth/service/auth.service';
     </div>
 `
 })
-export class AppTopBarComponent implements OnInit {
+export class AppTopBarComponent implements OnInit,OnDestroy {
+
+    userData : UserData;
+
+    isLoggedInFlag : boolean;
+
+    userDataSubscription : Subscription;
+
+    isLoggedIn : Subscription;
 
     constructor(public appMain: AppMainComponent, public app: AppComponent,public authService:AuthService) {
     }
@@ -257,13 +278,25 @@ export class AppTopBarComponent implements OnInit {
 
 
     ngOnInit(): void {
-        console.log(this.authService.userData$);
-        console.log(this.authService.isLoggedIn$);
+        this.userDataSubscription = this.authService.userData.subscribe(userData => {
+            this.userData = userData;
+        });
+        this.isLoggedIn = this.authService.isLoggedIn.subscribe(flag => {
+            this.isLoggedInFlag = flag;
+        });
     }
 
+    ngOnDestroy(): void {
+        this.userDataSubscription.unsubscribe();
+        this.isLoggedIn.unsubscribe();
+    }
 
     updateFlag(flag : boolean){
         this.authService.updateLoginFlag(flag);
+    }
+
+    logout(){
+        this.authService.logout();
     }
 
 

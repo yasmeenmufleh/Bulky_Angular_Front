@@ -35,6 +35,10 @@ import { ProductComponent } from '../pages/product/product.component';
 import { HomeComponent } from '../pages/home/home.component';
 import { DetailsComponent } from '../pages/home/details/details.component';
 import { AuthComponent } from '../auth/auth.component';
+import { AuthGuardService } from '../auth/service/auth-guard.service';
+import { CompanyComponent } from '../pages/company/company.component';
+import { ShoppingCartComponent } from '../pages/shopping-cart/shopping-cart.component';
+import { OrderSummaryComponent } from '../pages/shopping-cart/order-summary/order-summary.component';
 
 @NgModule({
     imports: [
@@ -44,9 +48,12 @@ import { AuthComponent } from '../auth/auth.component';
                 children: [
                     {path: '', component: HomeComponent},
                     {path: 'Dashboard', component: DashboardDemoComponent},
-                    {path: 'category', component: CategoryComponent},
-                    {path: 'product', component: ProductComponent},
+                    {path: 'category', component: CategoryComponent,canActivate : [AuthGuardService]},
+                    {path: 'product', component: ProductComponent,canActivate : [AuthGuardService]},
                     {path: 'productDetails', component: DetailsComponent},
+                    {path: 'Company', component: CompanyComponent,canActivate : [AuthGuardService]},
+                    {path: 'shoppingCart', component: ShoppingCartComponent,canActivate : [AuthGuardService]},
+                    {path: 'orderSummary', component: OrderSummaryComponent,canActivate : [AuthGuardService]},
                     {path: 'uikit/formlayout', component: FormLayoutDemoComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelDemoComponent},
                     {path: 'uikit/invalidstate', component: InvalidStateDemoComponent},

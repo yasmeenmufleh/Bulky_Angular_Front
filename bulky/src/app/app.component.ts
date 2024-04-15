@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { AuthService } from './auth/service/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -21,9 +22,10 @@ export class AppComponent implements OnInit{
 
     ripple: boolean;
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private primengConfig: PrimeNGConfig,private authService: AuthService) {}
 
     ngOnInit() {
+        this.authService.autoLogin();
         this.primengConfig.ripple = true;
     }
 }

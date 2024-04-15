@@ -1,0 +1,89 @@
+<form>
+    <p-card class="p-mb-4">
+        <p-toast></p-toast>
+        <ng-template pTemplate="header">
+            <div class="text-center" style="background-color: #385b77;padding: 30px;">
+                <div class="row" style="display: flex;">
+                    <div class="col-6">
+                        <h3 style="color: white;">Shopping Cart</h3>
+                    </div>
+                    <div class="col-6">
+                        <button pButton pRipple type="button" label="Back to Cart" class="p-button-info mr-2 mb-2" (click)="goBack()" ></button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <div class="p-grid">
+            <div class="row">
+                 <div class="p-col-12 p-lg-9">
+                    <div class="p-grid p-dir-col">
+                        <div class="p-col-12" style="margin-bottom: 25px;">
+                            <div class="row" style="display: flex;">
+                                <div class="col-6">
+                                    <div class="row" style="display: flex;">
+                                        <div class="col-4">
+                                            <label for="name">Name : </label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" pInputText id="name" name="name" placeholder="Name" required style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="display: flex;">
+                                        <div class="col-4">
+                                            <label for="phoneNumber">Phone Number :</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="phoneNumber" name="phoneNumber" type="text" placeholder="(+962) 77-777-7777" pInputText 
+                                            required style="width: 100%;">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="display: flex;">
+                                        <div class="col-4">
+                                            <label for="streetAddress">Street Address : </label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="streetAddress" type="text" placeholder="Street Address" pInputText 
+                                            required style="width: 100%;">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="display: flex;">
+                                        <div class="col-4">
+                                            <label for="city">City</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="city" type="text" placeholder="City" pInputText required style="width: 100%;">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="display: flex;">
+                                        <div class="col-4">
+                                            <label for="state">State</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="state" type="text" placeholder="State" pInputText 
+                                            required style="width: 100%;">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="display: flex;">
+                                        <div class="col-4">
+                                            <label for="postalCode">Postal Code</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="postalCode" type="text" placeholder="Postal Code" pInputText 
+                                            required style="width: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <h4 style="color: green;">Order Summary: </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </p-card>
+</form>

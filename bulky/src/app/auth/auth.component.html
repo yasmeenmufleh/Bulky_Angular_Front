@@ -1,6 +1,7 @@
 <div class="login-body" style="height: fit-content;">
     <div class="login-wrapper" style="height: fit-content;">
         <div class="login-panel" style="height: fit-content;">
+            <p-toast></p-toast>
             <p-card header="Login" *ngIf="isLogin"
                 [style]="{ 'margin-bottom': '1rem', 'border-radius': '56px','padding' : '0.3rem'}">
                 <ng-template pTemplate="header">
@@ -150,10 +151,16 @@
                         <input id="postalCode" type="text" placeholder="Postal Code" pInputText
                             class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="registerUser.postalCode">
                     </div>
-                    <div class="col-md-6" style="margin: 10px;">
-                        <label for="role" class="block text-900 text-xl font-medium mb-2">State</label>
+                    <div class="col-md-3" style="margin: 10px;">
+                        <label for="role" class="block text-900 text-xl font-medium mb-2">Role</label>
                         <p-dropdown id="role" [options]="roles" [(ngModel)]="selectedRole"
                             [ngModelOptions]="{standalone: true}" optionLabel="name" placeholder="Select a Role"
+                            [showClear]="true" class="w-full md:w-30rem mb-5"></p-dropdown>
+                    </div>
+                    <div class="col-md-3" style="margin: 10px;" *ngIf="selectedRole && selectedRole.name === 'Company'" >
+                        <label for="companies" class="block text-900 text-xl font-medium mb-2">Companies</label>
+                        <p-dropdown id="companies" [options]="companies" [(ngModel)]="slectedCompany"
+                            [ngModelOptions]="{standalone: true}" optionLabel="name" placeholder="Select a Company"
                             [showClear]="true" class="w-full md:w-30rem mb-5"></p-dropdown>
                     </div>
                 </div>

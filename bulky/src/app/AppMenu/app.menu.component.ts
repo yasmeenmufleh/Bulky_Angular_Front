@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppComponent} from '../app.component';
+import { AuthService } from '../auth/service/auth.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
     selector: 'app-menu',
@@ -13,19 +15,43 @@ export class AppMenuComponent implements OnInit {
 
     model: any[];
 
-    constructor(public app: AppComponent) {}
+    isLoggedInFlag : boolean;
+
+    isLoggedIn : Subscription;
+
+
+    constructor(public app: AppComponent,private authService : AuthService) {}
 
     ngOnInit() {
+
+        var items : any = {}
+
+        this.isLoggedIn = this.authService.isLoggedIn.subscribe(flag => {
+            this.isLoggedInFlag = flag;
+            if(flag){
+                items =  {
+                    label: 'Favorites', icon: 'pi pi-fw pi-home',
+                    items: [
+                        {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/']},
+                        {label: 'Category', icon: 'pi pi-align-justify', routerLink: ['/category']},
+                        {label: 'Product', icon: 'pi pi-book', routerLink: ['/product']},
+                        {label: 'Company', icon: 'pi pi-building', routerLink: ['/Company']},
+                        {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/Dashboard']},
+                    ]
+                };
+            }else{
+                items =  {
+                    label: 'Favorites', icon: 'pi pi-fw pi-home',
+                    items: [
+                        {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/']},
+                        {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/Dashboard']},
+                    ]
+                };
+            }
+        });
+
         this.model = [
-            {
-                label: 'Favorites', icon: 'pi pi-fw pi-home',
-                items: [
-                    {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/']},
-                    {label: 'Category', icon: 'pi pi-align-justify', routerLink: ['/category']},
-                    {label: 'Product', icon: 'pi pi-book', routerLink: ['/product']},
-                    {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/Dashboard']},
-                ]
-            },
+            items,
             {
                 label: 'UI Kit', icon: 'pi pi-fw pi-star-fill', routerLink: ['/uikit'],
                 items: [

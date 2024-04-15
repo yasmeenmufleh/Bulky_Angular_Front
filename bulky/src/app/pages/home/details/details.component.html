@@ -1,5 +1,6 @@
 <form>
     <p-card class="p-mb-4">
+        <p-toast></p-toast>
         <ng-template pTemplate="header">
             <div class="text-center" style="background-color: #385b77;padding: 30px;">
                 <h3 style="color: white;">{{ product.title }}</h3>
@@ -9,7 +10,14 @@
         <div class="p-grid">
             <div class="row" style="display: flex;">
                 <div class="col-4">
-                    <img [src]="product.imageUrl" class="d-block w-100" alt="..." style="width: 300px;">
+                    <div class="row">
+                        <div class="col-6">
+                            <button pButton pRipple type="button" label="Back to Home" class="p-button-rounded p-button-warning mr-2 mb-2" (click)="goToHome()" ></button>
+                        </div>
+                        <div class="col-6">
+                            <img [src]="product.imageUrl" class="d-block w-100" alt="..." style="width: 300px;">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-8">
                     <div class="p-col-12 p-lg-9">
@@ -54,9 +62,10 @@
                                     <p-inputNumber type="number" pInputText [(ngModel)]="count" name="count"
                                         class="form-control" style="max-width: 250px;"></p-inputNumber>
                                 </div>
+                                <small class="ng-dirty ng-invalid" style="color: red;" *ngIf="invalid">Count must be greater than 0</small>
                             </div>
                             <div class="p-col-12">
-                                <button type="submit" pButton class="p-button-primary" label="Add to Cart"></button>
+                                <button type="submit" pButton class="p-button-primary" label="Add to Cart" (click)="addToCart()"></button>
                             </div>
                         </div>
                     </div>

@@ -12,22 +12,22 @@ import { HomeService } from './services/home.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit,OnDestroy{
+export class HomeComponent implements OnInit, OnDestroy {
 
   cardsPerRow = 3;
   products: Product[] = [];
-  productSub : Subscription
+  productSub: Subscription
   rows: Product[][] = [];
 
 
-  constructor(private productService: ProductService,private breadcrumbService: AppBreadcrumbService
-    , private router: Router, private homeService : HomeService){
+  constructor(private productService: ProductService, private breadcrumbService: AppBreadcrumbService
+    , private router: Router, private homeService: HomeService) {
     this.breadcrumbService.setItems([
       { label: 'Favourit' },
       { label: 'Home' }
     ]);
   }
-  
+
 
   groupIntoRows(): void {
     this.rows = [];
@@ -47,15 +47,15 @@ export class HomeComponent implements OnInit,OnDestroy{
     this.productSub.unsubscribe();
   }
 
-  
-  show(eventName: string) { 
+
+  show(eventName: string) {
     console.log(eventName + " is performed")
-} 
+  }
 
 
-details(product: any): void {
-  this.homeService.updateProducts(product);
-  this.router.navigate(['productDetails']);
-}
+  details(product: any): void {
+    this.homeService.updateProducts(product);
+    this.router.navigate(['productDetails']);
+  }
 
 }

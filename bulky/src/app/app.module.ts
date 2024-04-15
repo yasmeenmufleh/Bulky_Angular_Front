@@ -1,6 +1,6 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -144,6 +144,10 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { HomeComponent } from './pages/home/home.component';
 import { DetailsComponent } from './pages/home/details/details.component';
 import { AuthComponent } from './auth/auth.component';
+import { AuthinterceptorService } from './auth/service/authinterceptor.service';
+import { CompanyComponent } from './pages/company/company.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { OrderSummaryComponent } from './pages/shopping-cart/order-summary/order-summary.component';
 
 
 
@@ -281,13 +285,20 @@ import { AuthComponent } from './auth/auth.component';
         ProductComponent,
         HomeComponent,
         DetailsComponent,
-        AuthComponent
+        AuthComponent,
+        CompanyComponent,
+        ShoppingCartComponent,
+        OrderSummaryComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService, AppBreadcrumbService, ConfigService,
-        MessageService, ConfirmationService
+        MessageService, ConfirmationService,{
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthinterceptorService,
+            multi: true
+          }
     ],
     bootstrap: [AppComponent]
 })

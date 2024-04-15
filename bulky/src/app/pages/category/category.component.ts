@@ -28,7 +28,8 @@ export class CategoryComponent implements OnInit,OnDestroy {
   categorySub : Subscription
 
 
-  constructor(private categoryService: CategoryService, private breadcrumbService: AppBreadcrumbService, private messageService: MessageService, private confirmationService: ConfirmationService) {
+  constructor(private categoryService: CategoryService, private breadcrumbService: AppBreadcrumbService, 
+    private messageService: MessageService, private confirmationService: ConfirmationService) {
     this.breadcrumbService.setItems([
       { label: 'Favourit' },
       { label: 'Category' }
